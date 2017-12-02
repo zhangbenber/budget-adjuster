@@ -27,7 +27,7 @@ export default function (mat, target) {
         let maxSteps = Math.ceil(preferredSteps * 1.5)
         for (let steps = minSteps; steps <= maxSteps; steps++) {
             let amount = steps * grading
-            let ratioCost = Math.pow(1 - amount / (item.amount * ratio), 2) * 500
+            let ratioCost = Math.pow(1 - amount / (item.amount * ratio), 2) * 100
             let roundCost = getRoundCost(amount)
             item.acceptable.push({
                 amount,
@@ -63,8 +63,8 @@ export default function (mat, target) {
         return digs.reduce((v, dig, index) => {
             return (v + ([
                 // 0,           1,  2,  3,  4,  5,  6,  7,  8,  9
-                0, index ? 16 : 1, 6, 12, 8, 2, 8, 12, 8, 16
-            ][dig] || 0) * Math.pow(index + 1, 2))
+                0, index ? 16 : 1,  6,  12, 8,  2,  8, 12,  8, 16
+            ][dig] || 0) * Math.pow(index + .5, 2))
         }, 0)
     }
 

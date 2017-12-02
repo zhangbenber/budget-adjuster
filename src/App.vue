@@ -1,5 +1,6 @@
 <template>
 	<div id="app">
+        <text-importer @import="importItems"/>
         <table>
             <thead>
                 <tr>
@@ -19,7 +20,7 @@
             </thead>
             <tbody>
                 <tr v-for="(item, i) in items" :key="i">
-                    <td>{{ item.name }}</td>
+                    <td class="left">{{ item.name }}</td>
                     <td>{{ item.univalent }}</td>
                     <td>{{ item.grading }}</td>
                     <td>{{ item.amount }}</td>
@@ -47,20 +48,22 @@
 </template>
 
 <script>
+import TextImporter from './components/TextImporter.vue'
 import Worker from 'worker-loader!./worker.js'
+
 export default {
-	data () {
-		return {
-			items: [
-                { name: "Item A", univalent: 5, amount: 200, grading: 5 },
-                { name: "Item B", univalent: 120, amount: 20, grading: 1 },
-                { name: "Item C", univalent: 500, amount: 5, grading: 1 },
-			],
-			target: 10000,
-            worker: null
-		}
-	},
+    components: {
+        textImporter: TextImporter
+    },
+	data: () => ({
+        items: [],
+        target: 10000,
+        worker: null
+    }),
 	methods: {
+        importItems (items) {
+            this.items = items
+        },
 		solve () {
             if (this.worker) {
                 this.stopSolve()
@@ -108,6 +111,10 @@ td, th {
     border: 1px solid #aaa;
     font-size: 14px;
     padding: 5px;
+    text-align: center;
+}
+td.left {
+    text-align: left;
 }
 input {
     font-size: 13px;
